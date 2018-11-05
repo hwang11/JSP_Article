@@ -88,7 +88,7 @@ public class ArticleDao {
 										+ "(group_id, sequence_no, posting_date, read_count, "
 										+ "writer_name, password, title, content) "
 										+ "values (?,?,?,0,?,?,?,?)");
-			pstmt.setInt(1, article.getGroupId());
+			pstmt.setInt(1, article.getGroupId()); 
 			pstmt.setString(2, article.getSequenceNumber());
 			pstmt.setTimestamp(3, new Timestamp(article.getPositingDate().getTime()));
 			pstmt.setString(4, article.getWriterName());
