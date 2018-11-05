@@ -79,4 +79,38 @@ public class ArticleDao {
 		
 		return article; //
 	}
+	public int insert(Connection conn, Article article) throws SQLException{
+		PreparedStatement pstmt = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement("insert into article "
+										+ "(group_id, sequence_no, posting_date, read_count, "
+										+ "writer_name, password, title, content) "
+										+ "values (?,?,?,0,?,?,?,?)");
+			pstmt.setInt(1, article.getGroupId());
+			pstmt.setString(2, article.getSequenceNumber());
+			pstmt.setTimestamp(3, new Timestamp(article.getPositingDate().getTime()));
+			pstmt.setString(4, article.getWriterName());
+			pstmt.setString(5, article.getPassword());
+			pstmt.setString(6, article.getTitle());
+			pstmt.setString(7, article.getContent());
+			
+			int insertCount = pstmt.executeUpdate();
+			
+			if(insertCount >0) {
+				stmt = conn.createStatement();
+				rs = stmt.executeQuery("select last_insert_id() from article");
+				if(rs.next()) {
+					return rs.getInt(1);
+				}
+			}
+			return -1; // 안되면.
+		}finally {
+			JdbcUtil.close(rs);
+			JdbcUtil.close(stmt);
+			JdbcUtil.close(pstmt);
+		}
+		
+	}
 }
