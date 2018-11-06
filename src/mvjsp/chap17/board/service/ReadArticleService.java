@@ -10,7 +10,7 @@ import mvjsp.jdbc.connection.ConnectionProvider;
 
 public class ReadArticleService {
 	private static ReadArticleService instance = new ReadArticleService();
-	public ReadArticleService getInstance() {
+	public static ReadArticleService getInstance() {
 		return instance;
 	}
 	private ReadArticleService() {}

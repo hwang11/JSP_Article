@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=euc-kr" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="mvjsp.chap17.board.model.ArticleListModel"%>
 <%@ page import="mvjsp.chap17.board.service.ListArticleService"%>
 <%
