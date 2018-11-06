@@ -7,7 +7,7 @@ public class Article {
 	private int id;
 	private int groupId;
 	private String sequenceNumber;
-	private Date positingDate;
+	private Date postingDate;
 	private int readCount;
 	private String writerName;
 	private String password;
@@ -31,11 +31,11 @@ public class Article {
 	public void setSequenceNumber(String sequenceNumber) {
 		this.sequenceNumber = sequenceNumber;
 	}
-	public Date getPositingDate() {
-		return positingDate;
+	public Date getPostingDate() {
+		return postingDate;
 	}
-	public void setPositingDate(Date positingDate) {
-		this.positingDate = positingDate;
+	public void setPostingDate(Date postingDate) {
+		this.postingDate = postingDate;
 	}
 	public int getReadCount() {
 		return readCount;
