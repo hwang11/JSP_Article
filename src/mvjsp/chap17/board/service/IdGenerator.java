@@ -10,7 +10,7 @@ import mvjsp.jdbc.connection.ConnectionProvider;
 
 public class IdGenerator {
 	private static IdGenerator instance = new IdGenerator();
-	public IdGenerator getInstance() {
+	public static IdGenerator getInstance() {
 		return instance;
 	}
 	
