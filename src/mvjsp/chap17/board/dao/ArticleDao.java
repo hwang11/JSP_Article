@@ -113,4 +113,35 @@ public class ArticleDao {
 		}
 		
 	}
+
+	public Article selectById(Connection conn,int articleId) throws SQLException{
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement("select * from article "
+					+ "where article_id = ?");
+			pstmt.setInt(1, articleId);
+			rs = pstmt.executeQuery(); //select 쿼리에만 사용 
+			if(!rs.next()) {
+				return null;
+			}
+			Article article = makeArticleFromResultSet(rs,true);
+			return article;
+		}finally {
+			JdbcUtil.close(pstmt);
+			JdbcUtil.close(rs);
+		}
+	}
+	public void increaseReadCount(Connection conn,int articleId) throws SQLException{
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement("update article"
+										+ "set read_count = read_count +1 "
+										+ "where article_id = ?");
+			pstmt.setInt(1, articleId);
+			pstmt.executeUpdate(); //insert,update,delete쿼리를 실행할때 사용 
+		}finally {
+			JdbcUtil.close(pstmt);
+		}
+	}
 }
