@@ -12,7 +12,7 @@
 	request.setAttribute("postedArticle", postedArticle);
 %>
 <html>
-<head><title>�Խñ� �ۼ�</title></head>
+<head><title>글쓰기</title></head>
 <body>
 �Խñ��� ����߽��ϴ�.
 <br/>
