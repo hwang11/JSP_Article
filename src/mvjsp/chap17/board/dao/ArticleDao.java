@@ -68,9 +68,9 @@ public class ArticleDao {
 		article.setId(rs.getInt("article_id"));
 		article.setGroupId(rs.getInt("group_id"));
 		article.setSequenceNumber(rs.getString("sequence_no"));
-		article.setPositingDate(rs.getTimestamp("posting_date"));
+		article.setPostingDate(rs.getTimestamp("posting_date"));
 		article.setReadCount(rs.getInt("read_count"));
-		article.setWriteName(rs.getString("writer_name"));
+		article.setWriterName(rs.getString("writer_name"));
 		article.setPassword(rs.getString("password"));
 		article.setTitle(rs.getString("title"));
 		if(readContent) {
@@ -90,7 +90,7 @@ public class ArticleDao {
 										+ "values (?,?,?,0,?,?,?,?)");
 			pstmt.setInt(1, article.getGroupId()); 
 			pstmt.setString(2, article.getSequenceNumber());
-			pstmt.setTimestamp(3, new Timestamp(article.getPositingDate().getTime()));
+			pstmt.setTimestamp(3, new Timestamp(article.getPostingDate().getTime()));
 			pstmt.setString(4, article.getWriterName());
 			pstmt.setString(5, article.getPassword());
 			pstmt.setString(6, article.getTitle());
@@ -141,6 +141,26 @@ public class ArticleDao {
 			pstmt.setInt(1, articleId);
 			pstmt.executeUpdate(); //insert,update,delete쿼리를 실행할때 사용 
 		}finally {
+			JdbcUtil.close(pstmt);
+		}
+	}
+	public String selectLastSequenceNumber(Connection conn,
+			String searchMaxSeqNum, String searchMinSeqNum) 
+	throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement("select min(sequence_no) from article" 
+										+ "where sequence_no< ? and sequence_no>=?");
+			pstmt.setString(1, searchMaxSeqNum);
+			pstmt.setString(2, searchMinSeqNum);
+			rs = pstmt.executeQuery();
+			if(!rs.next()) {
+				return null;
+			}
+			return rs.getString(1);
+		}finally {
+			JdbcUtil.close(rs);
 			JdbcUtil.close(pstmt);
 		}
 	}
